@@ -1,27 +1,29 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule], // Ensure this is added
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
   form: FormGroup;
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      username: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
 
   submit() {
     if (this.form.valid) {
-      console.log('Login submitted:', this.form.value);
-      // Later: Call AuthService and navigate to dashboard
+      console.log('Form Submitted', this.form.value);
+    } else {
+      console.log('Form is not valid');
     }
   }
 }

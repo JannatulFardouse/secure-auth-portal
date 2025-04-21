@@ -2,10 +2,12 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [],
+  standalone: true,
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss'
+  styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
+  userName: string = 'John Doe'; // This could be fetched dynamically
 
+  constructor() {}
 }
