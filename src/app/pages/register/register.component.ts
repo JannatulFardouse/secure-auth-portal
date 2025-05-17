@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';  // Import this
+import { ReactiveFormsModule } from '@angular/forms';  
+import {authenticator} from 'otplib';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule], // Add this
+  imports: [ReactiveFormsModule], 
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
@@ -23,9 +24,16 @@ export class RegisterComponent {
 
   submit() {
     if (this.form.valid) {
-      console.log('Registration form submitted:', this.form.value);
-    } else {
-      console.log('Registration form is not valid');
-    }
+     const { username, email, password } = this.form.value;
+
+    const secret = authenticator.generateSecret(); // Generate a secret for MFA
+    const user = {
+      email,
+      password: btoa(password),  // Encode password for basic security
+      secret                     // Save MFA secret
+    };
+
+    localStorage.setItem(username, JSON.stringify(user));
+    alert('Registration successful');
   }
 }
