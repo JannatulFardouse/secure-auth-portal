@@ -1,1 +1,4 @@
-<p>mfa works!</p>
+<form [formGroup]="form" (ngSubmit)="verify()">
+  <input formControlName="token" placeholder="Enter MFA Code">
+  <button type="submit">Verify</button>
+</form>
