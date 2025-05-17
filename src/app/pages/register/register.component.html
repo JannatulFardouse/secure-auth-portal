@@ -1,8 +1,12 @@
 <form [formGroup]="form" (ngSubmit)="submit()">
-    <input formControlName="username" placeholder="Username">
-    <input formControlName="email" type="email" placeholder="Email">
-    <input formControlName="password" type="password" placeholder="Password">
-    <input formControlName="confirmPassword" type="password" placeholder="Confirm Password">
-    <button type="submit">Register</button>
-  </form>
-  
+  <input formControlName="username" placeholder="Username" required>
+  <input formControlName="email" type="email" placeholder="Email" required>
+  <input formControlName="password" type="password" placeholder="Password" required>
+  <input formControlName="confirmPassword" type="password" placeholder="Confirm Password" required>
+  <button type="submit">Register</button>
+</form>
+
+<div *ngIf="qrCodeDataUrl" style="margin-top: 20px;">
+  <p>Scan this QR code with your Authenticator app (e.g., Google Authenticator):</p>
+  <img [src]="qrCodeDataUrl" alt="MFA QR Code" />
+</div>
