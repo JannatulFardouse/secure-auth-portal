@@ -20,10 +20,21 @@ export class LoginComponent {
   }
 
   submit() {
-    if (this.form.valid) {
-      console.log('Form Submitted', this.form.value);
-    } else {
-      console.log('Form is not valid');
-    }
+    const { username, password } = this.form.value;
+  const userData = localStorage.getItem(username);
+
+  if (!userData) {
+    alert('User not found');
+    return;
+  }
+
+  const user = JSON.parse(userData);
+
+  if (user.password === btoa(password)) {
+    localStorage.setItem('tempUser', username); // Store temporarily for MFA
+    // Navigate to MFA step
+    window.location.href = '/mfa';
+  } else {
+    alert('Incorrect password');
   }
 }
