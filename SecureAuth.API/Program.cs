@@ -1,12 +1,11 @@
+using OtpNet;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
@@ -14,28 +13,36 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
+// Generate TOTP secret and current code
+app.MapGet("/generate-totp", () =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+    var secretKey = KeyGeneration.GenerateRandomKey(20);
+    var base32Secret = Base32Encoding.ToString(secretKey);
 
-app.MapGet("/weatherforecast", () =>
+    var totp = new Totp(secretKey);
+    var code = totp.ComputeTotp();
+
+    return Results.Ok(new
+    {
+        Secret = base32Secret,
+        CurrentCode = code
+    });
+});
+
+// Verify a TOTP code with secret key
+app.MapPost("/verify-totp", (VerifyTotpRequest request) =>
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+    var secretKeyBytes = Base32Encoding.ToBytes(request.Secret);
+    var totp = new Totp(secretKeyBytes);
+
+    bool isValid = totp.VerifyTotp(request.Code, out long timeStepMatched, new VerificationWindow(previous: 1, future: 1));
+
+    return Results.Ok(new
+    {
+        IsValid = isValid
+    });
+});
 
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+record VerifyTotpRequest(string Secret, string Code);

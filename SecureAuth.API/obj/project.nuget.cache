@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "eL1IjRqrRto=",
+  "dgSpecHash": "5LxiSQAtZaA=",
   "success": true,
   "projectFilePath": "C:\\git\\secure-auth-portal\\secure-auth-portal\\SecureAuth.API\\SecureAuth.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\user\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.4\\microsoft.aspnetcore.openapi.9.0.4.nupkg.sha512",
-    "C:\\Users\\user\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+    "C:\\Users\\user\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\otp.net\\1.4.0\\otp.net.1.4.0.nupkg.sha512"
   ],
   "logs": []
 }

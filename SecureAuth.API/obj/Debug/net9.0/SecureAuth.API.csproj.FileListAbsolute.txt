@@ -32,3 +32,4 @@ C:\git\secure-auth-portal\secure-auth-portal\SecureAuth.API\obj\Debug\net9.0\ref
 C:\git\secure-auth-portal\secure-auth-portal\SecureAuth.API\obj\Debug\net9.0\SecureAuth.API.pdb
 C:\git\secure-auth-portal\secure-auth-portal\SecureAuth.API\obj\Debug\net9.0\SecureAuth.API.genruntimeconfig.cache
 C:\git\secure-auth-portal\secure-auth-portal\SecureAuth.API\obj\Debug\net9.0\ref\SecureAuth.API.dll
+C:\git\secure-auth-portal\secure-auth-portal\SecureAuth.API\bin\Debug\net9.0\Otp.NET.dll
